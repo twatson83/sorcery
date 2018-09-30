@@ -30,8 +30,13 @@ export default function getMapFromUrl ( url, base, sync ) {
 		}
 
 		const json = atob( match[1] );
-		const map = parseJSON( json, `data URI in ${base}` );
-		return sync ? map : Promise.resolve( map );
+		try {
+			var map = parseJSON( json, ("data URI in " + base) );
+			return sync ? map : sander.Promise.resolve( map );
+		} catch (e) {
+				console.warn("Could not parse sourceMappingURL " + url)
+		}
+		return null;
 	}
 
 	url = resolve( dirname( base ), decodeURI( url ) );
