@@ -11,6 +11,11 @@ export default function getSourceMappingUrl ( str ) {
 	}
 
 	substring = str.substring( index + 17 );
+
+  // If sourcemap url ends in semi colon remove it
+	if (substring.slice(-1) === ';')
+		substring = subtring.substring(0, substring.length - 2);
+
 	match = /^[^\r\n]+/.exec( substring );
 
 	url = match ? match[0] : null;
